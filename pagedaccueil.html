@@ -1,0 +1,71 @@
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Page D'accueil</title>
+        <!-- Import bootstrap 5-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+            <!-- Import DataTables CSS  -->
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+            <!-- Import css for the homepage-->
+            <link rel="stylesheet" href="./css/accueil.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">
+                    <img src="./images/logo.png" width="157" height="64">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Disponibilités Livres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Authentification Administration</a>
+                        </li>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="container-fluid">
+                <div id="currentAlbumHover"></div>
+                <div class="searchbar"></div>
+                <div class="containerHomepageBooks table-responsive w-100 h-75 mx-md-5 px-md-5 h-100">
+                        <table id="homePageTabBooks" class="table table-lg">
+                            <thead>
+                                <tr>
+                                    <th class="imgColumnHeader no-sort">Image</th>
+                                    <th>Titre</th>
+                                    <th>Serie</th>
+                                    <th>Auteur</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tabListLivresBody" id="tabListLivresBody">
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </main>
+        <!--Jquery , data ,boostrap , accueilConsultationFond importation-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="data/reducedDevAlbum.js"></script>
+        <script src="data/series.js"></script>
+        <script src="data/auteurs.js"></script>
+        <script src="js/accueilConsultationFond.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+            <!-- Import jQuery DataTables -->
+            <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    </body>
+
+</html>
