@@ -7,10 +7,12 @@
         <!-- Import bootstrap 5-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-            <!-- Import DataTables CSS  -->
-            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-            <!-- Import css for the homepage-->
-            <link rel="stylesheet" href="./css/accueil.css">
+        <!-- Import DataTables CSS  -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+        <!-- Import css for the homepage-->
+        <link rel="stylesheet" href="./css/accueil.css">
+        <!--Iport FontAwesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
 
     <body>
@@ -35,10 +37,30 @@
             </nav>
         </header>
         <main>
+            <!-- Modal -->
+            <div class="modal fade " id="albumPopUp" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div id="modal-dialog" class="modal-dialog modal-dialog-centered">    
+   </div>
+            </div>
             <div class="container-fluid">
                 <div id="currentAlbumHover"></div>
-                <div class="searchbar"></div>
-                <div class="containerHomepageBooks table-responsive w-100 h-75 mx-md-5 px-md-5 h-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="searchBar form py-2 col-md-6 col-sm-9 col-12 mx-auto d-flex align-items-center">
+                            <i class="fa fa-search "></i>
+                            <input type="text" class="form-control form-input" id="searchInput"
+                                placeholder="Chercher un album" pattern="[0-9a-zA-ZÀ-ÿ\s'&ç^-]*">
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div id="responsiveList" class="row justify-content-around">
+                        <ul class="pagination justify-content-center my-2"></ul>
+                    </div>
+                </div>
+                <div id="containerHomepageBooks"
+                    class="containerHomepageBooks container table-responsive w-100 h-75 mx-md-auto h-100">
                         <table id="homePageTabBooks" class="table table-lg">
                             <thead>
                                 <tr>
@@ -51,10 +73,11 @@
                             <tbody class="tabListLivresBody" id="tabListLivresBody">
                             </tbody>
                         </table>
+
                 </div>
             </div>
         </main>
-        <!--Jquery , data ,boostrap , accueilConsultationFond importation-->
+        <!--Jquery , dataTable ,boostrap , accueilConsultationFond importation-->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="data/reducedDevAlbum.js"></script>
@@ -64,8 +87,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
-            <!-- Import jQuery DataTables -->
-            <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <!-- Import jQuery DataTables et plugin DataTable pour recherche sans accent -->
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/plug-ins/1.13.7/filtering/type-based/accent-neutralise.js"></script>
     </body>
 
 </html>
