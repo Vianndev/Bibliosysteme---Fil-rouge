@@ -8,7 +8,56 @@
     --main-font: 'Arial', sans-serif;
     --grey-font: 'Poppins',sans-serif;
     --base-padding: 10px;
+    --list-background-color: #444B6E;
+    --active-list-background-color: #9AB87A;
   }
+  /* ----------------- Pagination ------------------- */
+  a:hover {
+    cursor: pointer;
+  }
+  
+  #pagination {
+    display: flex;
+    height: 30px;
+    margin: 15px !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  #pagination  {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  #pagination  li {
+    color: black;
+    display: flex;
+  }
+  
+  #pagination  li a {
+    background-color:  var(--gray);
+    padding: 5px 10px;
+    border: 2px solid var(--gray);
+    border-right: 0;
+  }
+  
+  #pagination  li.active a {
+    background-color: #9AB87A;
+  }
+  
+  #pagination  li:first-child a {
+    border-radius: 5px 0 0 5px;
+  }
+  
+  #pagination  li:last-child a {
+    border-radius: 0 5px 5px 0;
+    border-right: 2px solid var(--gray);
+  }
+  
+  
 /* ------------------ CARTES --------------------- */
   .card {
     border-radius: 30px;
