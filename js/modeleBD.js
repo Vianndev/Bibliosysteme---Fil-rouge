@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
 	var serie = series.get(album.idSerie);
 	var auteur = auteurs.get(album.idAuteur);
 	console.log(album.titre+" "+serie.nom+" "+auteur.nom);
-	*/
+	*/ 
 
 	/*
 	console.log("Liste des albums");
