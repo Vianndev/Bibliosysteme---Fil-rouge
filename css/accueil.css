@@ -43,9 +43,15 @@
     border: 2px solid var(--gray);
     border-right: 0;
   }
-  
+  #pagination .previous{
+    color: var(--bs-pagination-color)
+  }
+  #pagination .next{
+    color: var(--bs-pagination-color)
+  }
   #pagination  li.active a {
-    background-color: #9AB87A;
+    background-color:var(--violet-clair);
+    border: 2px solid var(--violet-clair);
   }
   
   #pagination  li:first-child a {
@@ -127,7 +133,7 @@
 }
 
 .form-input:focus{
-
+  background-color: var(--gray);
   box-shadow: none;
   border:none;
 }

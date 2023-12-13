@@ -299,7 +299,8 @@ function afficheAlbums() {
     // Récupération du nom de l'auteur et de la série grace ID
     var serieName = series.get(value.idSerie).nom;
     var auteurName = auteurs.get(value.idAuteur).nom;
-
+    var numeroAlbum = key.toString(),
+        exemplairesKeyTab = [];
     // Génération du nom de fichier pour les images
     let nomFic = serieName + "-" + value.numero + "-" + value.titre;
     nomFic = nomFic.replace(/'|!|\?|\.|"|:|\$/g, ""); // Suppression des caractères non autorisés
@@ -307,10 +308,22 @@ function afficheAlbums() {
     // Donne les src des images aux albums
     value.miniImg = SRC_ALBUM_MINI + nomFic + ".jpg";
     value.bigImg = SRC_ALBUM + nomFic + ".jpg";
-
+    // Renvoie la clé et la valeur de chaque examplaire disponible d'un album dans un tableau
+    exemplairesKeyTab = getExemplairesPerAlbum(numeroAlbum);
+    console.log(exemplairesKeyTab);
+    manageExemplaires(exemplairesKeyTab ,key);
     // Ajout de l'album à la table et à la liste de cartes
     addNewRow(key, value.miniImg, value.titre, serieName, auteurName);
-    addNewCard(key, value.bigImg, value.titre, serieName, auteurName);
+    addNewCard(
+      key,
+      value.bigImg,
+      value.titre,
+      serieName,
+      auteurName,
+      value.exemplairesKeyTab,
+      value.nombreExemplairesDispo,
+      value.emplacement
+    );
 
     // Affichage des détails de l'album dans la console
     console.log(`Album ID: ${key}`);
@@ -323,6 +336,80 @@ function afficheAlbums() {
     console.log("------------------------");
   }
 }
+
+// ------------------------------- Gestion Exemplaires ----------------------------------
+/**
+ * Renvoie la clé et la valeur de chaque examplaire disponible d'un album dans un tableau
+ * @param {number} numeroAlbum Nombre de l'album que vous voulez verifier
+ * @returns {2DArray}  clé et la valeur de chaque examplaire disponible
+ */
+function getExemplairesPerAlbum(numeroAlbum) {
+  var exemplairesKeyTab = [];
+  
+  // Parcourt chaque élément dans 'exemplaires' pour trouver les exemplaires disponibles pour l'album spécifié
+  for (const [key, value] of exemplaires) {
+    if (value.keyAlbum.toString() == numeroAlbum) {
+      exemplairesKeyTab.push([key, value]); // Ajoute la clé et la valeur de chaque exemplaire trouvé
+    }
+  }
+
+  // Renvoie le tableau des exemplaires si au moins un exemplaire est disponible, sinon renvoie null
+  if (exemplairesKeyTab.length != 0) {
+    return exemplairesKeyTab;
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Gère les exemplaires pour un album donné en ajoutant les données d'exemplaires à l'album.
+ * @param {2DArray |null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
+ * @param {string} key Clé de l'album à gérer (utile quand le tableau est == null)
+ */
+function manageExemplaires(exemplairesKeyTab, key) {
+  getExemplairesData(exemplairesKeyTab, key); // Appelle la fonction pour recuperer les données d'exemplaires à l'album
+
+}
+
+/**
+ * Ajoute les données d'exemplaires à un album spécifique s'il en possède.
+ * @param {2DArray|null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
+ * @param {string} key Clé de l'album à gérer
+ */
+function getExemplairesData(exemplairesKeyTab, key) {
+  // Vérifie s'il y a des exemplaires pour l'album et attribue les valeurs correspondantes
+  if (exemplairesKeyTab !== null) {
+    var nombreExemplairesDispo = 0;
+    var exemplairesAlbumKey = exemplairesKeyTab[0][1].keyAlbum.toString();
+    var album = albums.get(exemplairesAlbumKey);
+
+    // Attribue la clé de chaque exemplaire de cet album dans un tableau
+    for (let i = 0; i < exemplairesKeyTab.length; i++) {
+      var exemplairesKey = exemplairesKeyTab[i][0].toString();
+
+      // Si l'exemplaire actuel est disponible, incrémente le compteur d'exemplaires disponibles
+      if (exemplairesKeyTab[i][1].isDispo === true) {
+        nombreExemplairesDispo++;
+      }
+
+      // Crée un tableau avec chaque exemplaire pour cet album s'il n'existe pas encore
+      if (album.exemplairesKeyTab === undefined) {
+        album.exemplairesKeyTab = [];
+      }
+      album.exemplairesKeyTab.push(exemplairesKey);
+    }
+    album.nombreExemplairesDispo = nombreExemplairesDispo;
+    album.emplacement = exemplairesKeyTab[0][1].emplacement;
+    console.log(album);
+  } else {
+    // Affecte des valeurs par défaut à l'album s'il n'a pas d'exemplaires
+    var album = albums.get(key);
+    album.exemplairesKeyTab = [];
+    album.nombreExemplairesDispo = 0;
+    album.emplacement = null;
+    console.log(album);
+  }
+}
 /**
  * Creer les cartes respectives de chaque album
  * @param {Number} id
@@ -331,7 +418,8 @@ function afficheAlbums() {
  * @param {String} serieName
  * @param {String} auteurName
  */
-function addNewCard(id, bigImg, titre, serieName, auteurName) {
+function addNewCard(id, bigImg, titre, serieName, auteurName, exemplairesKeyTab,
+nombreExemplairesDispo,emplacement) {
   var currentCard = document.createElement("div");
   currentCard.classList.add(
     "card",
@@ -363,8 +451,16 @@ function addNewCard(id, bigImg, titre, serieName, auteurName) {
   cardSerie.setAttribute("class", "card-text");
   cardSerie.innerText = serieName;
 
+  var cardExemplairesInfo = document.createElement("div");
+  cardExemplairesInfo.setAttribute("class", "d-flex justify-content-between flex-row");
+  var cardExemplairesNb = document.createElement("p");
+ if (nombreExemplairesDispo > 1) {
+   cardExemplairesNb.innerHTML = `Nombres d'exemplaires disponible : <span class="text-success">${nombreExemplairesDispo}</span>`;
+ }
+ cardExemplairesInfo.appendChild(cardExemplairesNb);
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSerie);
+   cardBody.appendChild(cardExemplairesInfo);
   //----------------------------Card Footer------------------------------------------
   var cardFooter = document.createElement("div");
   cardFooter.setAttribute("class", "card-footer");
