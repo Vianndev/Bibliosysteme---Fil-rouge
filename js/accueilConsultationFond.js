@@ -310,8 +310,8 @@ function afficheAlbums() {
     value.bigImg = SRC_ALBUM + nomFic + ".jpg";
     // Renvoie la clé et la valeur de chaque examplaire disponible d'un album dans un tableau
     exemplairesKeyTab = getExemplairesPerAlbum(numeroAlbum);
-    console.log(exemplairesKeyTab);
     manageExemplaires(exemplairesKeyTab ,key);
+    console.log(exemplairesKeyTab)
     // Ajout de l'album à la table et à la liste de cartes
     addNewRow(key, value.miniImg, value.titre, serieName, auteurName);
     addNewCard(
@@ -320,7 +320,7 @@ function afficheAlbums() {
       value.titre,
       serieName,
       auteurName,
-      value.exemplairesKeyTab,
+      exemplairesKeyTab,
       value.nombreExemplairesDispo,
       value.emplacement
     );
@@ -367,7 +367,7 @@ function getExemplairesPerAlbum(numeroAlbum) {
  * @param {string} key Clé de l'album à gérer (utile quand le tableau est == null)
  */
 function manageExemplaires(exemplairesKeyTab, key) {
-  getExemplairesData(exemplairesKeyTab, key); // Appelle la fonction pour recuperer les données d'exemplaires à l'album
+  pushExemplairesDataToAlbum(exemplairesKeyTab, key); // Appelle la fonction pour recuperer les données d'exemplaires à l'album
 
 }
 
@@ -376,7 +376,7 @@ function manageExemplaires(exemplairesKeyTab, key) {
  * @param {2DArray|null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
  * @param {string} key Clé de l'album à gérer
  */
-function getExemplairesData(exemplairesKeyTab, key) {
+function pushExemplairesDataToAlbum(exemplairesKeyTab, key) {
   // Vérifie s'il y a des exemplaires pour l'album et attribue les valeurs correspondantes
   if (exemplairesKeyTab !== null) {
     var nombreExemplairesDispo = 0;
@@ -420,12 +420,14 @@ function getExemplairesData(exemplairesKeyTab, key) {
  */
 function addNewCard(id, bigImg, titre, serieName, auteurName, exemplairesKeyTab,
 nombreExemplairesDispo,emplacement) {
+  console.log(emplacement);
   var currentCard = document.createElement("div");
   currentCard.classList.add(
     "card",
     "cardAlbum",
     "text-center",
     "col-5",
+    "col-md-10",
     "mt-3",
     "p-0"
   );
@@ -435,7 +437,7 @@ nombreExemplairesDispo,emplacement) {
   cardHeader.className = "card-header p-0";
 
   var cardImg = document.createElement("img");
-  cardImg.className = "w-100";
+  cardImg.setAttribute("class", "w-100");
   cardImg.src = bigImg;
 
   cardHeader.appendChild(cardImg);
@@ -452,24 +454,50 @@ nombreExemplairesDispo,emplacement) {
   cardSerie.innerText = serieName;
 
   var cardExemplairesInfo = document.createElement("div");
-  cardExemplairesInfo.setAttribute("class", "d-flex justify-content-between flex-row");
+  cardExemplairesInfo.setAttribute(
+    "class",
+    "d-flex justify-content-between flex-column flex-sm-row"
+  );
   var cardExemplairesNb = document.createElement("p");
- if (nombreExemplairesDispo > 1) {
+  // Gere l'affichage du nb d'exemplaire dispo et de l'emplacement
+ if (nombreExemplairesDispo >= 1) {
+   cardExemplairesNb.setAttribute("class","col-12 col-sm-5");
    cardExemplairesNb.innerHTML = `Nombres d'exemplaires disponible : <span class="text-success">${nombreExemplairesDispo}</span>`;
- }
+    cardExemplairesInfo.appendChild(cardExemplairesNb);
+   if (emplacement != null) {
+    var cardExemplairesLocation = document.createElement("ul");
+    cardExemplairesLocation.setAttribute(
+      "class",
+      "list-unstyled col-12 col-md-5"
+    );
+       cardExemplairesLocation.innerHTML = `<li>Emplacement</li>
+                                            <li>${emplacement.etage}</li>
+                                            <li>${emplacement.rayon}</li>
+                                            <li>Numero :${emplacement.numero}</li>`;
+    cardExemplairesInfo.appendChild(cardExemplairesLocation);
+   }
+ }  else if (nombreExemplairesDispo === 0) {
+  cardExemplairesNb.innerHTML = `<span class="text-danger">Aucun examplaire Disponible</span>`;
  cardExemplairesInfo.appendChild(cardExemplairesNb);
+ }
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSerie);
    cardBody.appendChild(cardExemplairesInfo);
   //----------------------------Card Footer------------------------------------------
+   var cardFooterContainer = document.createElement("div");
+   cardFooterContainer.setAttribute(
+     "class",
+     "d-flex flex-column align-content-center flex-wrap flex-grow position-absolute bottom-0 w-100"
+   );
   var cardFooter = document.createElement("div");
-  cardFooter.setAttribute("class", "card-footer");
+  cardFooter.setAttribute("class", "card-footer align-content-center");
   cardFooter.innerText = auteurName;
+  cardFooterContainer.appendChild(cardFooter);
   // Insertion dans la div
   currentCard.appendChild(cardHeader);
   currentCard.appendChild(cardBody);
-  currentCard.appendChild(cardFooter);
-
+  currentCard.appendChild(cardFooterContainer);
+  
   responsiveList.appendChild(currentCard);
 }
 
@@ -496,7 +524,7 @@ function addNewRow(id, miniImg, titre, serieName, auteurName) {
   });
 }
 function showAlbumPopUp(id) {
-  var currentAlbum = document.getElementById(`card${id}`);
+  var currentAlbum = document.getElementById(`card${id}`).cloneNode(true);
   var modalContent = document.getElementById(`modal-dialog`);
   modalContent.removeChild(modalContent.firstChild);
 
