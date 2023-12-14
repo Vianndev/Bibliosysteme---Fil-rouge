@@ -11,6 +11,50 @@
     --list-background-color: #444B6E;
     --active-list-background-color: #9AB87A;
   }
+  /* ----------------- Ajout Livre ------------------ */
+.modal-dialog #ajouterLivre{
+  background-color: var(--violet-clair);
+  display: flex !important;
+  flex-direction: row;
+  border-radius: 30px;
+  height: 600px;
+  width: 100%;
+}
+.importImg{
+  height: ;
+}
+  .btnAjoutLivre{
+    color: white;
+background-color: var(--orange);
+padding: 10px 35px;
+width: 170px;
+height: 36px;
+border: none;
+border-radius: 50px;
+transition : 661ms;
+transform: translateY(0);
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+  }
+  .btnAjoutLivre a{
+    font-weight: 0;
+font-size: 14px;
+    color: white;
+text-decoration:none;
+  }
+  .btnAjoutLivre:hover{
+
+    transition : 661ms;
+    padding: 10px 35px;
+    transform : translateY(-7px);
+    background-color: var(--orange);
+    color: white;
+    border: none;
+    }
+
   /* ----------------- Pagination ------------------- */
   a:hover {
     cursor: pointer;

@@ -37,8 +37,20 @@
             </nav>
         </header>
         <main>
+            <!-- Ajouter un livre -->
+            <button class="btnAjoutLivre" ><a data-bs-toggle="modal" href="#ajouterLivrePopUp" role="button">Ajouter un livre</a></button>
+            <div class="modal fade" id="ajouterLivrePopUp" aria-hidden="true" aria-labelledby="..." tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-lg container"  role="document">
+                    <div id="ajouterLivre row"></div>
+                    <div class="col-10 col-sm-4"></div>
+                    <!--
+                    <div class=" row justify-content-center w-100 h-100">
+                        <div id="ajouterLivre"  class="col-10 col-md-6 h-100"></div>
+                    </div>-->
+                </div>
+            </div>
             <!-- Modal -->
-            <div class="modal fade " id="albumPopUp" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade " id="albumPopUp" tabindex="-1" aria-labelledby="Explique le livre selectionné"
                 aria-hidden="true">
                 <div id="modal-dialog" class="modal-dialog modal-dialog-centered">
                 </div>
