@@ -66,16 +66,17 @@
   
 /* ------------------ CARTES --------------------- */
   .card {
+    display: flex !important;
+    flex-direction: column;
     border-radius: 30px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    background: var(--gray);
-
-  
+    background: var(--gray); 
   }
-  
   .card-body {
     background: var(--gray);
+    flex-grow: 1;
+    margin-bottom: 35px;
   }
   
   .card-title{
@@ -86,8 +87,17 @@
   }
   
   .card-footer {
-    
+    position:relative;
+    bottom:0;
+    width:100%;
+    margin-top: auto;
     color: var(--violet-fonce);
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    flex-direction: column;
+    align-content: center;
+    align-self: flex-end;
     border-bottom-left-radius: 30px !important;
     border-bottom-right-radius: 30px !important;
   }
