@@ -477,7 +477,7 @@ nombreExemplairesDispo,emplacement) {
     cardExemplairesInfo.appendChild(cardExemplairesLocation);
    }
  }  else if (nombreExemplairesDispo === 0) {
-  cardExemplairesNb.innerHTML = `<span class="text-danger">Aucun examplaire Disponible</span>`;
+  cardExemplairesNb.innerHTML = `<span class="text-danger">Aucun exemplaire Disponible</span>`;
  cardExemplairesInfo.appendChild(cardExemplairesNb);
  }
   cardBody.appendChild(cardTitle);
