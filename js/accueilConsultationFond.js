@@ -104,7 +104,7 @@ function manageSmallScreen() {
   containerHomepageBooks.style.display = "none";
   var cardAlbums = document.querySelectorAll(".cardAlbum");
   cardAlbums.forEach(function (cardAlbum) {
-    cardAlbum.style.display = "block"; // Set display to empty to remove inline style
+    cardAlbum.style.display = "block"; 
   });
   afficheCard();
 }
@@ -124,13 +124,14 @@ function manageOtherBigScreen() {
  */
 function afficheCard(params) {
   searchInTable();
-  //reset la pagination
+  //  Reset l'element pagination 
   var pagination = document.getElementById("pagination");
   while (pagination.firstChild) {
     pagination.removeChild(pagination.firstChild);
   }
-  // Masquage de toutes les cartes et suppression de la pagination existante
-  $(".cardAlbum").hide();
+  // Masquage de toutes les cartes
+    $(".cardAlbum").hide();
+
 
   // Parcours les albums puis afficher ceux des cherché/visibles
   for (const [key, value] of albums) {
@@ -160,32 +161,36 @@ function afficheCard(params) {
       break;
     }
   }
-
+/*
   // Gestion de l'événement de clic sur la pagination
-  /*
   $(".pagination").on("click", "li", function (e) {
     e.preventDefault();
-    managePaginationClick(this);
+    manageCardShowPerPage(this);
   });*/
 }
-
-function createPagination(page) {
+/**
+ * Gere la pagination et creer la pagination a chaque cclick sur un element
+ * @param {*} page 
+ * @returns 
+ */
+function createPagination(pageCourante) {
   let str = '<ul class="pagination justify-content-center my-2">';
   let active;
-  let pageCutLow = page - 1;
-  let pageCutHigh = page + 1;
-  managePaginationClick(page); 
-  // Show the Previous button only if you are on a page other than the first
-  if (page > 1) {
+  let pageCoupeBasse = pageCourante - 1;
+  let pageCoupeHaute = pageCourante + 1;
+  manageCardShowPerPage(pageCourante);
+
+  // Afficher le bouton Précédent
+  if (pageCourante > 1) {
     str +=
       '<li class="page-item previous no"><a onclick="createPagination(' +
-      (page - 1) +
-      ')">Previous</a></li>';
+      (pageCourante - 1) +
+      ')">Précédent</a></li>';
   }
-  // Show all the pagination elements if there are less than 6 totalPages total
+  // S'il y a moins de six pages, afficher tous les boutons de pagination
   if (totalPages < 6) {
     for (let p = 1; p <= totalPages; p++) {
-      active = page == p ? "active" : "no";
+      active = pageCourante == p ? "active" : "no";
       str +=
         '<li class="' +
         active +
@@ -195,44 +200,40 @@ function createPagination(page) {
         p +
         "</a></li>";
     }
-  }
-  // Use "..." to collapse pages outside of a certain range
-  else {
-    // Show the very first page followed by a "..." at the beginning of the
-    // pagination section (after the Previous button)
-    if (page > 2) {
+  } else {
+    // Ajouter "..." pour reculer de deux pages derrière le bouton précédent
+    if (pageCourante > 2) {
       str +=
         '<li class="no page-item"><a onclick="createPagination(1)">1</a></li>';
-      if (page > 3) {
+      if (pageCourante > 3) {
         str +=
           '<li class="out-of-range"><a onclick="createPagination(' +
-          (page - 2) +
+          (pageCourante - 2) +
           ')">...</a></li>';
       }
     }
 
-    // Determine how many pages to show after the current page index
-    if (page === 1) {
-      pageCutHigh += 2;
-    } else if (page === 2) {
-      pageCutHigh += 1;
+    // Déterminer combien de pages afficher après l'indice de la page actuelle
+    if (pageCourante === 1) {
+      pageCoupeHaute += 2;
+    } else if (pageCourante === 2) {
+      pageCoupeHaute += 1;
     }
-    // Determine how many pages to show before the current page index
-    if (page === totalPages) {
-      pageCutLow -= 2;
-    } else if (page === totalPages - 1) {
-      pageCutLow -= 1;
+    // Déterminer combien de pages afficher avant l'indice de la page actuelle
+    if (pageCourante === totalPages) {
+      pageCoupeBasse -= 2;
+    } else if (pageCourante === totalPages - 1) {
+      pageCoupeBasse -= 1;
     }
-    // Output the indexes for pages that fall inside the range of pageCutLow
-    // and pageCutHigh
-    for (let p = pageCutLow; p <= pageCutHigh; p++) {
+    // Afficher les indexes des pages comprises entre pageCoupeBasse et pageCoupeHaute
+    for (let p = pageCoupeBasse; p <= pageCoupeHaute; p++) {
       if (p === 0) {
         p += 1;
       }
       if (p > totalPages) {
         continue;
       }
-      active = page == p ? "active" : "no";
+      active = pageCourante == p ? "active" : "no";
       str +=
         '<li class="page-item ' +
         active +
@@ -242,13 +243,13 @@ function createPagination(page) {
         p +
         "</a></li>";
     }
-    // Show the very last page preceded by a "..." at the end of the pagination
-    // section (before the Next button)
-    if (page < totalPages - 1) {
-      if (page < totalPages - 2) {
+    // Afficher la toute dernière page précédée de "..." à la fin de la section de pagination
+    // (avant le bouton Suivant)
+    if (pageCourante < totalPages - 1) {
+      if (pageCourante < totalPages - 2) {
         str +=
           '<li class="out-of-range"><a onclick="createPagination(' +
-          (page + 2) +
+          (pageCourante + 2) +
           ')">...</a></li>';
       }
       str +=
@@ -257,44 +258,42 @@ function createPagination(page) {
         "</a></li>";
     }
   }
-  // Show the Next button only if you are on a page other than the last
-  if (page < totalPages) {
+  // Afficher le bouton Suivant seulement si vous êtes sur une page autre que la dernière
+  if (pageCourante < totalPages) {
     str +=
       '<li class="page-item next no"><a onclick="createPagination(' +
-      (page + 1) +
-      ')">Next</a></li>';
+      (pageCourante + 1) +
+      ')">Suivant</a></li>';
   }
   str += "</ul>";
-  // Return the pagination string to be outputted in the pug templates
+  // Renvoyer la chaîne de pagination pour être affichée dans les modèles Pug
   document.getElementById("pagination").innerHTML = str;
   return str;
 }
 
-function managePaginationClick(page) {
-  currentPage = page;
-  // Récupération du numéro de page cliqué
-  var pageNum = $(page).text();
 
-  // Calcul des index de début et de fin pour les éléments à afficher
-  var start = (currentPage - 1) * 10;
+function manageCardShowPerPage(pageCourante) {
+  // Calcul des index de début et de fin pour les éléments à afficher pour 10 elements par page
+  var start = (pageCourante - 1) * 10;
   var end = start + 10;
+  //  Cache toutes les cartes
   $(".cardAlbum").hide();
 
   // Affichage des éléments pour la page sélectionnée
   resultsDiv.slice(start, end).forEach(function (element) {
-    element.style.setProperty("display", "block", "important");
+    element.style.setProperty("display", "block");
   });
 
   // Mise à jour de la classe active pour la pagination
   $(".pagination li").removeClass("active");
-  $(page).addClass("active");
+  $(pageCourante).addClass("active");
 }
 /**
  * Affiche les albums dans un tableau  et creer les src des images mini et grandes.
  * Les informations sur l'auteur, la série et les images des albums sont récupérées.
  * Chaque album est ajouté à la table et à la liste de cartes.
  */
-function afficheAlbums() {
+async function afficheAlbums() {
   for (const [key, value] of albums) {
     // Récupération du nom de l'auteur et de la série grace ID
     var serieName = series.get(value.idSerie).nom;
@@ -308,6 +307,17 @@ function afficheAlbums() {
     // Donne les src des images aux albums
     value.miniImg = SRC_ALBUM_MINI + nomFic + ".jpg";
     value.bigImg = SRC_ALBUM + nomFic + ".jpg";
+    //  Ajoute l'isbn si iil n'est pas déjà rentré
+    if (value.isbn === undefined && value.isbnAlreadySearched != true) {
+      var titreAuteur = value.titre + " " + auteurName;
+      const isbnArray = await getIsbnApi(titreAuteur);
+        if (isbnArray != false) {
+              value.isbn =isbnArray;
+        } else{
+          value.isbn === undefined;
+          value.isbnAlreadySearched = true;
+        } 
+    }
     // Renvoie la clé et la valeur de chaque examplaire disponible d'un album dans un tableau
     exemplairesKeyTab = getExemplairesPerAlbum(numeroAlbum);
     manageExemplaires(exemplairesKeyTab ,key);
@@ -320,13 +330,13 @@ function afficheAlbums() {
       value.titre,
       serieName,
       auteurName,
-      exemplairesKeyTab,
       value.nombreExemplairesDispo,
       value.emplacement
     );
 
     // Affichage des détails de l'album dans la console
     console.log(`Album ID: ${key}`);
+    console.log(`Album isbn : ${value.isbn}`)
     console.log(`Titre: ${value.titre}`);
     console.log(`Numero: ${value.numero}`);
     console.log(`ID Serie: ${value.idSerie}, Nom de la série: ${serieName}`);
@@ -366,8 +376,8 @@ function getExemplairesPerAlbum(numeroAlbum) {
  * @param {2DArray |null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
  * @param {string} key Clé de l'album à gérer (utile quand le tableau est == null)
  */
-function manageExemplaires(exemplairesKeyTab, key) {
-  pushExemplairesDataToAlbum(exemplairesKeyTab, key); // Appelle la fonction pour recuperer les données d'exemplaires à l'album
+function manageExemplaires(exemplairesKeyTab, albumKey) {
+  pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey); // Appelle la fonction pour recuperer les données d'exemplaires à l'album
 
 }
 
@@ -376,13 +386,14 @@ function manageExemplaires(exemplairesKeyTab, key) {
  * @param {2DArray|null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
  * @param {string} key Clé de l'album à gérer
  */
-function pushExemplairesDataToAlbum(exemplairesKeyTab, key) {
+function pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey) {
   // Vérifie s'il y a des exemplaires pour l'album et attribue les valeurs correspondantes
   if (exemplairesKeyTab !== null) {
     var nombreExemplairesDispo = 0;
     var exemplairesAlbumKey = exemplairesKeyTab[0][1].keyAlbum.toString();
     var album = albums.get(exemplairesAlbumKey);
-
+   // var albumMap = getAlbumFromLocal();
+   // var currentAlbum = albumMap.get(exemplairesAlbumKey)
     // Attribue la clé de chaque exemplaire de cet album dans un tableau
     for (let i = 0; i < exemplairesKeyTab.length; i++) {
       var exemplairesKey = exemplairesKeyTab[i][0].toString();
@@ -403,11 +414,11 @@ function pushExemplairesDataToAlbum(exemplairesKeyTab, key) {
     console.log(album);
   } else {
     // Affecte des valeurs par défaut à l'album s'il n'a pas d'exemplaires
-    var album = albums.get(key);
+    var album = albums.get(albumKey);
     album.exemplairesKeyTab = [];
     album.nombreExemplairesDispo = 0;
     album.emplacement = null;
-    console.log(album);
+    console.log(album, albums.size);
   }
 }
 /**
@@ -418,7 +429,7 @@ function pushExemplairesDataToAlbum(exemplairesKeyTab, key) {
  * @param {String} serieName
  * @param {String} auteurName
  */
-function addNewCard(id, bigImg, titre, serieName, auteurName, exemplairesKeyTab,
+function addNewCard(id, bigImg, titre, serieName, auteurName,
 nombreExemplairesDispo,emplacement) {
   console.log(emplacement);
   var currentCard = document.createElement("div");
@@ -473,7 +484,7 @@ nombreExemplairesDispo,emplacement) {
        cardExemplairesLocation.innerHTML = `<li>Emplacement</li>
                                             <li>${emplacement.etage}</li>
                                             <li>${emplacement.rayon}</li>
-                                            <li>Numero :${emplacement.numero}</li>`;
+                                            <li>Numero: ${emplacement.numero}</li>`;
     cardExemplairesInfo.appendChild(cardExemplairesLocation);
    }
  }  else if (nombreExemplairesDispo === 0) {
@@ -525,8 +536,10 @@ function addNewRow(id, miniImg, titre, serieName, auteurName) {
 }
 function showAlbumPopUp(id) {
   var currentAlbum = document.getElementById(`card${id}`).cloneNode(true);
-  var modalContent = document.getElementById(`modal-dialog`);
-  modalContent.removeChild(modalContent.firstChild);
+ currentAlbum.style.display = "block";
+  var modalContent = document.getElementById(`popUpLivre`);
+  console.log(modalContent);
+   if (modalContent.firstChild) modalContent.removeChild(modalContent.firstChild);
 
   modalContent.appendChild(currentAlbum);
   $("#albumPopUp").modal("show");

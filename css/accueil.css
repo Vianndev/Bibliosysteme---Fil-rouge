@@ -12,16 +12,46 @@
     --active-list-background-color: #9AB87A;
   }
   /* ----------------- Ajout Livre ------------------ */
+  .modal-body {
+    max-height: calc(100vh - 143px);
+    overflow-y: auto; }
+    .modal-dialog {
+      height: 900px;
+    }
 .modal-dialog #ajouterLivre{
   background-color: var(--violet-clair);
   display: flex !important;
   flex-direction: row;
   border-radius: 30px;
-  height: 600px;
+  height: 900px;
   width: 100%;
 }
-.importImg{
-  height: ;
+
+.ui-autocomplete {
+  position: fixed;
+  z-index: 3;
+  max-height: 200px; 
+  overflow-y: scroll; 
+  overflow-x: hidden;
+}
+.ajouterLivreHeader{
+  height: 25px;
+  margin-bottom: 0px;
+}
+.ajouterLivreImg{
+  margin-top: 0;
+  max-height: 250px;
+  background-color: white;
+  border-radius: 20px;
+}
+.input-group-text{
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+.isbnInputBtn{
+  background-color: white;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
 }
   .btnAjoutLivre{
     color: white;
@@ -75,24 +105,22 @@ text-decoration:none;
     margin: 0;
     display: flex;
   }
-  
+  /*Change la couleur des nomrbe/texte de la pagination*/
   #pagination  li {
     color: black;
     display: flex;
   }
-  
+  #pagination  .page-link {
+    color: black;
+  }
+  /*Change la couleur du background*/
   #pagination  li a {
     background-color:  var(--gray);
     padding: 5px 10px;
     border: 2px solid var(--gray);
     border-right: 0;
   }
-  #pagination .previous{
-    color: var(--bs-pagination-color)
-  }
-  #pagination .next{
-    color: var(--bs-pagination-color)
-  }
+/*Change la couleur du background ACTIF */
   #pagination  li.active a {
     background-color:var(--violet-clair);
     border: 2px solid var(--violet-clair);
@@ -110,7 +138,7 @@ text-decoration:none;
   
 /* ------------------ CARTES --------------------- */
   .card {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     border-radius: 30px;
     border-top-left-radius: 30px;
@@ -200,6 +228,7 @@ text-decoration:none;
   .dataTables_filter,.dataTables_length {
     display: none;
  }
+  /* ------------------ Notification --------------------- */
  /* ------------------ Tableau --------------------- */
 table thead tr { height: 35;}
 tr {

@@ -4,7 +4,7 @@ exemplaires.set("1", {
   keyAlbum: "15",
   emplacement: {
     etage: "Etage 2",
-    rayon: "Rayon C",
+    rayon: "Science-fiction",
     numero: 20,
   },
   isDispo: true,
@@ -19,7 +19,7 @@ exemplaires.set("1", {
   keyAlbum: "1",
   emplacement: {
     etage: "Etage 3",
-    rayon: "Rayon C",
+    rayon: "Science-fiction",
     numero: 19,
   },
   isDispo: true,
@@ -34,7 +34,7 @@ exemplaires.set("3", {
   keyAlbum: "3",
   emplacement: {
     etage: "Etage 1",
-    rayon: "Rayon C",
+    rayon: "Arts et Culture",
     numero: 18,
   },
   isDispo: false,
@@ -51,7 +51,7 @@ exemplaires.set("4", {
   keyAlbum: "4",
   emplacement: {
     etage: "Etage 2",
-    rayon: "Rayon C",
+    rayon: "Romance",
     numero: 15,
   },
   isDispo: true,
@@ -66,7 +66,7 @@ exemplaires.set("5", {
   keyAlbum: "6",
   emplacement: {
     etage: "Etage 2",
-    rayon: "Rayon A",
+    rayon: "Fiction",
     numero: 13,
   },
   isDispo: true,
@@ -81,7 +81,7 @@ exemplaires.set("6", {
   keyAlbum: "6",
   emplacement: {
     etage: "Etage 2",
-    rayon: "Rayon A",
+    rayon: "Fiction",
     numero: 13,
   },
   isDispo: true,

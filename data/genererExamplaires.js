@@ -29,3 +29,8 @@ let emplacementsLivres = genererEmplacements(20);
 
 // Afficher les emplacements générés
 console.log("Emplacements de livres générés :", emplacementsLivres);
+
+const textRegex = /[\p{L}\p{Lu}\p{N}\p{P}\s]+/gu;
+
+const isTitreValid = textRegex.test("Zep ");
+console.log(isTitreValid); // This should output true
