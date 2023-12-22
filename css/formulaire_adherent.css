@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,400&display=swap');
+:root {
+    --violet-fonce: #363062;
+    --violet-clair: #4D4C7D;
+    --orange:#F99417;
+    --gray:#D4D3D3;
+    --main-font: 'Arial', sans-serif;
+    --grey-font: 'Poppins',sans-serif;
+    --base-padding: 10px;
+    --list-background-color: #444B6E;
+    --active-list-background-color: #9AB87A;
+  }
+.divFormulaire{
+    position: absolute;
+    background-color: #363062;
+    color: white;
+    width: 40%;
+    display: block;
+    margin-left: 30%;
+    margin-top: 5%;
+    border-radius: 20px;
+    padding: 0.5%;
+    visibility: hidden;
+    border: 1px solid black;
+    transform: translatey(-150px);
+}
+.divAlerteAmendeTxt{
+    background-color: rgb(3, 152, 65);
+}
+.btnModifierCss{
+    background-color: rgb(3, 152, 65);
+    border-radius: 10px;
+    font-size: 20px;
+    width: 45%;
+    display:block;
+    margin: auto;
+    margin-top: 2%;
+}
+
+.divFormModifierAdhere{
+    position: absolute;
+    background-color: #363062;
+    color: white;
+    width: 30%;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+    margin-left: 35%;
+    margin-top: 1%;
+    border-radius: 20px;
+    padding: 0.5%;
+    visibility: hidden;
+    border: 1px solid black;
+    transform: translatey(-150px);
+}
+.divModAdherent{
+    position: absolute;
+    background-color: #363062;
+    color: white;
+    width: 30%;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+    margin-left: 35%;
+    margin-top: 1%;
+    border-radius: 20px;
+    padding: 0.5%;
+    visibility: hidden;
+    border: 1px solid black;
+    transform: translatey(-150px);
+    
+}
+.navbare{
+    font-family: 'Poppins',sans-serif;
+    background-color: black;
+    opacity: 0.5 ;
+    margin-top: -8px;
+    margin-bottom: -8px;
+    padding-top:none;
+}
+.divSuccesmodi{
+    background-color: rgb(3, 152, 65);
+    padding: 1%;
+    border-radius: 10px;
+    visibility: hidden ;
+}
+.divSuccesSupprime{
+    background-color: rgb(3, 152, 65);
+    padding: 1%;
+    border-radius: 10px;
+    visibility: hidden;
+}
+.matable{
+    font-weight: 500;
+  
+}
+.fondOpa{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;  
+    opacity: 0.5;
+    z-index: 2;
+    display: none;
+}
+.divsucce{
+    background-color: rgb(3, 152, 65);
+    padding: 1%;
+    border-radius: 10px;
+    visibility: hidden;
+}
+.diverreur{
+    background-color: rgb(250, 47, 33);
+    padding: 1%;
+    border-radius: 10px;
+    visibility: hidden;
+}
+.divErrmodi{
+    background-color: rgb(250, 47, 33);
+    padding: 1%;
+    border-radius: 10px;
+    visibility: hidden;
+}
+.divSupAdherent{
+    position: absolute;
+    background-color: #363062;
+    color: white;
+    width: 30%;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-left: 5%;
+    display: block;
+    margin-left: 35%;
+    margin-top: 2%;
+    border-radius: 20px;
+    padding: 0.5%;
+    visibility: hidden;
+    border: 1px solid black;
+    transform: translatey(-150px);
+    
+}
+h1{
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+}
+
+input{
+    width: 60%;
+    height: 30px;
+    margin-bottom: 10px; 
+    border-radius: 10px;
+}
+.paiementCotisation{
+    margin-top: 4%;
+}
+label{
+    display: block;
+    width: 150px;
+	
+    font-size: 24px;
+    margin-left: 2%;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    float: left;
+    width: 60%;
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+div.dataTables_wrapper div.dataTables_filter label{
+    float: none;
+    font-size: 24px;
+    width: 60%;
+}
+
+.txtCot{
+    border-radius: 20px;
+    border: 1px solid rgb(3, 152, 65);
+    padding: 0.5%;
+    width: fit-content;
+    background-color: rgb(3, 152, 65);
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+    font-weight: 600;
+    visibility: hidden;
+}
+.btnAjouteAdherent{
+    margin-top: 10px;
+margin-left: 10px;
+}
+.btnMettreAJour{
+    background-color: rgb(3, 152, 65);
+    border-radius: 10px;
+    font-size: 20px;
+    width: 45%;
+    display:block;
+    margin: auto;
+    margin-top: 2%;
+}
+.btnAjouter{
+    background-color: rgb(3, 152, 65);
+    border-radius: 10px;
+    font-size: 20px;
+    width: 45%;
+    display:block;
+    margin: auto;
+}
+.btnSupprimer{
+    background-color: rgb(3, 152, 65);
+    border-radius: 10px;
+    font-size: 20px;
+    width: 45%;
+    display:block;
+    margin: auto;
+    margin-bottom: 2%;
+}
+.divAlerteAmende{
+    position: absolute;
+    background-color: #F99417;
+    width: 40%;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-left: 5%;
+    display: block;
+    margin-left: 30%;
+    margin-top: 5%;
+    border-radius: 20px;
+    padding: 0.5%;
+    visibility: hidden;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px black; 
+}
+.genereNewAdherent{
+    background-color: rgb(69, 68, 68);
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    width: 37%;
+    display:block;
+    margin-left: 2%;
+}
+.divAdherent{
+    width: fit-content;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: rgb(0, 255, 30);
+    margin-left: 3%;
+    margin-top: 1%;
+    visibility: hidden;
+}
+.table th span{
+    display: none;
+}
+.divError{
+    background-color: rgb(250, 47, 33);
+    font-weight: 600;
+    width: fit-content;
+}
+.divSucc{
+    background-color: rgb(8, 243, 8);
+    font-weight: 600;
+    width: fit-content;
+}
+.fenetreApparaitDisparait{
+    visibility: visible;
+    z-index: 3;
+    transition: 0.3s;
+    transform: translateY(0);
+    
+}
+.fondOpaApparait{
+    display: block;
+}
+.nav-link {
+    font-family: 'Poppins',sans-serif;
+    color:  #4D4C7D !important;
+}
+@media screen and (max-width:1500px){
+    .divFormulaire{
+        width: 60%;
+        margin-left: 20%;
+    }
+    div.dataTables_wrapper div.dataTables_filter {
+        width: 90%;
+    }
+    div.dataTables_wrapper div.dataTables_filter label{
+        width: 100%;
+        
+    }
+    .divFormModifierAdhere{
+        width: 60%;
+        margin-left: 20%;
+    }
+    .divModAdherent{
+        width: 60%;
+        margin-left: 20%;
+        
+    }
+    .divSupAdherent{
+        width: 60%;
+        margin-left: 20%;
+        
+    }
+}
+@media screen and (max-width:800px){
+    .divFormulaire{
+        width: 80%;
+        font-size: 15px;
+        margin-left: 10%;
+        margin-top: -50px;
+    }
+    .genereNewAdherent{
+        width: 60%;
+    }
+    .btnMettreAJour{
+        width: 70%;
+    }
+    .btnAjouter{
+        width: 70%;
+    }
+    .btnSupprimer{
+        width: 70%;
+    }
+    div.dataTables_wrapper div.dataTables_filter {
+        width: 90%;
+    }
+    div.dataTables_wrapper div.dataTables_filter label{
+        width: 100%;
+        
+    }
+    .divFormModifierAdhere{
+        width: 80%;
+        font-size: 15px;
+        margin-left: 10%;
+        margin-top: -70px;
+    }
+    .divModAdherent{
+        width: 80%;
+        font-size: 18px;
+        margin-left: 10%;
+        margin-top: 0px;
+    }
+    .divSupAdherent{
+        width: 80%;
+        font-size: 18px;
+        margin-left: 10%;
+        margin-top: 30px;
+    }
+}
+@media screen and (max-width:876px){
+    .table th span{
+        display: block;
+    }
+    .table th div{
+        display: none;
+    }
+    .table th td button{
+        display: none;
+    }
+}
+@media screen and (max-width:511px){
+    input{
+        width: 90%;
+    }
+}

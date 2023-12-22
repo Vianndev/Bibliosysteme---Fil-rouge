@@ -1,0 +1,270 @@
+/* ------------------ Importation de polices --------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,400&display=swap');
+:root {
+    --violet-fonce: #363062;
+    --violet-clair: #4D4C7D;
+    --orange:#F99417;
+    --gray:#D4D3D3;
+    --main-font: 'Arial', sans-serif;
+    --grey-font: 'Poppins',sans-serif;
+    --base-padding: 10px;
+    --list-background-color: #444B6E;
+    --active-list-background-color: #9AB87A;
+  }
+  /* ----------------- Ajout Livre ------------------ */
+  .modal-body {
+    max-height: calc(100vh - 143px);
+    overflow-y: auto; }
+    .modal-dialog {
+      height: 900px;
+    }
+.modal-dialog #ajouterLivre{
+  background-color: var(--violet-clair);
+  display: flex !important;
+  flex-direction: row;
+  border-radius: 30px;
+  height: 850px;
+  width: 100%;
+}
+
+.ui-autocomplete {
+  position: fixed;
+  z-index: 3;
+  max-height: 200px; 
+  overflow-y: scroll; 
+  overflow-x: hidden;
+}
+.ajouterLivreHeader{
+  height: 25px;
+  margin-bottom: 0px;
+}
+.ajouterLivreImg{
+  margin-top: 0;
+  max-height: 250px;
+  background-color: white;
+  border-radius: 20px;
+}
+.input-group-text{
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+.isbnInputBtn{
+  background-color: white;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+}
+  .btnAjoutLivre{
+    color: white;
+background-color: var(--orange);
+padding: 10px 35px;
+width: 170px;
+height: 36px;
+border: none;
+margin-top: 10px;
+margin-left: 10px;
+border-radius: 50px;
+transition : 661ms;
+transform: translateY(0);
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+  }
+  .btnAjoutLivre a{
+    font-weight: 0;
+font-size: 14px;
+    color: white;
+text-decoration:none;
+  }
+  .btnAjoutLivre:hover{
+
+    transition : 661ms;
+    padding: 10px 35px;
+    transform : translateY(-7px);
+    background-color: var(--orange);
+    color: white;
+    border: none;
+    }
+
+  /* ----------------- Pagination ------------------- */
+  a:hover {
+    cursor: pointer;
+  }
+  
+  #pagination {
+    display: flex;
+    height: 30px;
+    margin: 15px !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  #pagination  {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  /*Change la couleur des nomrbe/texte de la pagination*/
+  #pagination  li {
+    color: black;
+    display: flex;
+  }
+  #pagination  .page-link {
+    color: black;
+  }
+  /*Change la couleur du background*/
+  #pagination  li a {
+    background-color:  var(--gray);
+    padding: 5px 10px;
+    border: 2px solid var(--gray);
+    border-right: 0;
+  }
+/*Change la couleur du background ACTIF */
+  #pagination  li.active a {
+    background-color:var(--violet-clair);
+    border: 2px solid var(--violet-clair);
+  }
+  
+  #pagination  li:first-child a {
+    border-radius: 5px 0 0 5px;
+  }
+  
+  #pagination  li:last-child a {
+    border-radius: 0 5px 5px 0;
+    border-right: 2px solid var(--gray);
+  }
+  
+  
+/* ------------------ CARTES --------------------- */
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background: var(--gray); 
+  }
+  .card-body {
+    background: var(--gray);
+    flex-grow: 1;
+    margin-bottom: 35px;
+  }
+  
+  .card-title{
+    color:var(--violet-clair);
+  }
+  .card-text{
+    color:dark;
+  }
+  
+  .card-footer {
+    position:relative;
+    bottom:0;
+    width:100%;
+    margin-top: auto;
+    color: var(--violet-fonce);
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    flex-direction: column;
+    align-content: center;
+    align-self: flex-end;
+    border-bottom-left-radius: 30px !important;
+    border-bottom-right-radius: 30px !important;
+  }
+  
+  .card-header {
+    border-top-left-radius: 30px;
+     border-top-right-radius: 30px;
+    border: 0px;
+  }
+  
+  .card-header img {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  
+  }
+
+  /* ------------------ searchBar --------------------- */
+  .searchBar{
+    position: relative;
+  }
+  .searchBar .fa-search{
+
+    position: absolute;
+    top:20px;
+    left: 20px;
+    color: #9ca3af;
+
+}
+
+.left-pan{
+  padding-left: 7px;
+}
+
+.left-pan i{
+ padding-left: 15px;
+}
+
+.form-input{
+  background-color: var(--gray);
+  height: 40px;
+  text-indent: 33px;
+  border-radius: 15px;
+}
+
+.form-input:focus{
+  background-color: var(--gray);
+  box-shadow: none;
+  border:none;
+}
+
+
+  .no-sort::after { display: none!important; }
+  .no-sort::before { display: none!important; }
+
+  .no-sort { pointer-events: none!important; cursor: default!important; }
+  .dataTables_filter,.dataTables_length {
+    display: none;
+ }
+  /* ------------------ Notification --------------------- */
+ /* ------------------ Tableau --------------------- */
+table thead tr { height: 35;}
+tr {
+  height:117px;
+}
+td .table-text{
+  height: auto;
+  text-align: center; /* Center horizontally */
+  vertical-align: middle; /* Center vertically */
+  align-self: center;
+  margin: auto;
+  font-family: var(--grey-font);
+  color: #6C757D;
+}
+
+
+body .table-img{
+  max-height: 100px;
+  transition: transform 0.5s;
+}
+body .table-img:hover {
+  position:absolute;
+  height: auto;
+  width: auto;
+  cursor: pointer;
+  transform: scale(1.6);
+  z-index: 3;
+}
+.imgColumnHeader{
+  width: 40px;
+}
+
+.nav-link {
+    color: var(--violet-clair);
+}
+
+.table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch}@media (max-width: 575.98px){.table-responsive-sm{overflow-x:auto;-webkit-overflow-scrolling:touch}}@media (max-width: 767.98px){.table-responsive-md{overflow-x:auto;-webkit-overflow-scrolling:touch}}@media (max-width: 991.98px){.table-responsive-lg{overflow-x:auto;-webkit-overflow-scrolling:touch}}@media (max-width: 1199.98px){.table-responsive-xl{overflow-x:auto;-webkit-overflow-scrolling:touch}}@media (max-width: 1399.98px){.table-responsive-xxl{overflow-x:auto;-webkit-overflow-scrolling:touch}}

@@ -1,0 +1,286 @@
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Page D'accueil</title>
+        <link rel="icon" type="image/png" href="images/faviconbiblio.png">
+        <!-- Import bootstrap 5-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <!-- Import DataTables CSS  -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+        <!-- Import css for the homepage-->
+        <link rel="stylesheet" href="./css/accueil.css">
+        <!-- Import Toastr Css pour les Notifications  -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+        <!--Iport FontAwesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">
+                    <img src="./images/CENTRE CULTUREL (1).png" width="157" height="64">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#"  aria-current="page">Accueil</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="./formulaire_adherent.html">Gestion Adhérents</a>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#connectionModal">
+                        Connexion
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!-- Se connecter -->
+                <div class="modal fade" id="connectionModal" tabindex="-1" aria-labelledby="connectionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="connectionModalLabel">Connexion</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Veuillez vous connecter
+                            </div>
+                            <div class="modal-footer">
+                
+                                <button type="button" class="btn btn-success">Se connecter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Ajouter un livre -->
+            <button class="btnAjoutLivre"><a data-bs-toggle="modal" href="#ajouterLivrePopUp" role="button">Ajouter un
+                    livre</a></button>
+            <div class="modal fade" id="ajouterLivrePopUp" aria-hidden="true" aria-labelledby="..." tabindex="-1">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content  bg-transparent border-0">
+                        <div id="ajouterLivre" class="modal-body  ui-front p-0 ">
+                            <div  class="row w-100 m-0">
+                                <form action="" method="post" id="ajouterLivreForm">
+                                    <h3 class="text-white text-center mt-1">Ajouter un livre</h3>
+                                    <div class="form-group row">
+                                        <div class="col-12 my-1 mt-2 px-2 px-md-5">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span id="isbnInputLabel" class="input-group-text">ISBN :</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="isbnInput" id="isbnInput"
+                                                    placeholder="" required minlength="3" maxlength="20"><!--Verifie le code isbn-->
+                                                <div class="input-group-append">
+                                                    <button id="isbnInputBtn" class="btn isbnInputBtn btn-outline-secondary"
+                                                        type="button">Trouver</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-1 px-2 px-md-5">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Titre :</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="titreInput"
+                                                    id="titreInput" placeholder="" minlength="3" maxlength="60" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-1 px-2 px-md-5">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Auteur :</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="auteurInput"
+                                                    id="auteurInput" placeholder=""   required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-1 px-2 px-md-5">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Serie :</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="serieInput"
+                                                    id="serieInput" placeholder=""  minlength="3" maxlength="60" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-1 px-2 px-md-5 text-center">
+                                            <div class="container">
+                                                <div class="row justify-content-center">
+                                                    <div class=" col-12 col-md-4 p-0 my-md-0 my-1">
+                                                        <div class="input-group w-100">
+                                                            <div class="input-group-prepend"><span class="input-group-text">Etat</span></div>
+                                                            <select id="etatSelect" class="custom-select w-75" required>
+                                                                <option value="Neuf" selected>Neuf</option>
+                                                                <option value="Très bon état">Très bon état</option>
+                                                                <option value="Bon état">Bon état</option>
+                                                                <option value="Acceptable">Acceptable</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 col-12 p-0 my-md-0 my-1">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">Code Exemplaire :</span>
+                                                            </div>
+                                                            <input minlength="3" maxlength="20" type="text" class="form-control" name="codeExemplaireInput" id="codeExemplaireInput" placeholder="" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="emplacementDiv col-12 my-1 px-2 px-md-5 text-start">
+                                            <div class="container">
+                                                <h4 class="text-white col-12">Emplacement</h4>
+                                                <div class="row justify-content-between">
+                                                    <div class="col-md-auto col-12 p-0 my-md-0 my-1">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend"><span class="input-group-text">Etage</span></div>
+                                                            <select class="custom-select"  id="etageSelect" required>
+                                                                <option value="etage" selected>1</option>
+                                                                <option value="Très bon état">2</option>
+                                                                <option value="Bon état">3</option>
+                                                                <option value="Acceptable">4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-12 p-0 my-md-0 my-1">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend"><span class="input-group-text">Rayon</span></div>
+                                                            <select class="custom-select" id="rayonSelect" required>
+                                                                    <option value="Fiction">Fiction</option>
+                                                                    <option value="Science-fiction">Science-fiction</option>
+                                                                    <option value="Mystère et Suspense">Mystère et Suspense</option>
+                                                                    <option value="Romance">Romance</option>
+                                                                    <option value="Biographies et Mémoires">Biographies et Mémoires</option>
+                                                                    <option value="Histoire">Histoire</option>
+                                                                    <option value="Arts et Culture">Arts et Culture</option>
+                                                                    <option value="Livres pour Enfants">Livres pour Enfants</option>
+                                                                    <option value="Science et Nature">Science et Nature</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-12 p-0 my-md-0 my-1">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">Numero :</span>
+                                                            </div>
+                                                            <input  maxlength="5" type="number" class="form-control" name="numeroInput" id="numeroInput" placeholder="" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="commentaireImgDiv col-12 my-1 px-2 px-md-5">
+                                            <div class="container">
+                                                <div class="row justify-content-between text-start">
+                                                    <h4 class="text-white col-12">Image :</h4>
+                                                    <div class="col-sm-auto col-12 mx-sm-0 mx-auto"><img src="./images/apercu.png" height="250px" width="auto"  alt="" id="showImgInput"></div>
+                                                    <div class="col-md-7 col-12 p-0 my-md-0 my-1  align-content-between">
+                                                        <div class="container  align-content-between">
+                                                            <div class="row">
+                                                                <div class="input-group col-12">
+                                                                    <span class="input-group-text">Image</span>
+                                                                    <input type="file" class="form-control" id="imgFileInput"  accept=".jpg, .jpeg, .png"> <!-- is-invalid si ca ne marche pas-->
+                                                                </div>
+                                                                <div class="input-group col-12 my-1">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">Commentaires :</span>
+                                                                    </div>
+                                                                    <input  maxlength="150" type="text" class="form-control" name="commentaireInput" id="commentaireInput"  placeholder="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12  my-1 px-2 px-md-5 d-flex justify-content-around">
+                                            <button id="ajouterLivreSubmit" type="submit" class="btn btn-success btn-lg">Ajouter</button>
+                                            <button id="ajouterLivreSubmit" type="reset" class="btn btn-danger btn-lg" onclick="resetForm()">Annuler</button>
+                                        </div>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- Pop-up livre -->
+            <div class="modal fade " id="albumPopUp" tabindex="-1" aria-labelledby="Explique le livre selectionné"
+                aria-hidden="true">
+                <div id="popUpLivre" class="modal-dialog modal-dialog-centered"></div>
+            </div>
+            <!-- Search bar -->
+            <div class="container-fluid">
+                <div id="currentAlbumHover"></div>
+                <div class="container">
+                    <div class="row gy-0">
+                        <div class="searchBar form py-2 col-md-6 col-sm-9 col-12 mx-auto d-flex align-items-center">
+                            <i class="fa fa-search "></i>
+                            <input type="text" class="form-control form-input" id="searchInput"
+                                placeholder="Chercher un album" pattern="^[0-9a-zA-ZÀ-ÿ\s'&^\\-]*$">
+                        </div>
+                    </div>
+                    <div id="pagination" class="pagination justify-content-center"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="responsiveList" class="row justify-content-around">
+                    <h2 id="noSearchFound" class="text-center mt-4" style="display: none;">Aucun album correspondant
+                        trouvé</h2>
+                </div>
+            </div>
+            <div id="containerHomepageBooks"
+                class="containerHomepageBooks container table-responsive w-100 h-75 mx-md-auto h-100 "
+                style="display: none;">
+                <table id="homePageTabBooks" class="table table-lg">
+                    <thead>
+                        <tr>
+                            <th class="imgColumnHeader no-sort">Image</th>
+                            <th>Titre</th>
+                            <th>Serie</th>
+                            <th>Auteur</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tabListLivresBody" id="tabListLivresBody">
+                    </tbody>
+                </table>
+
+            </div>
+            </div>
+        </main>
+        <!--Jquery , dataTable ,boostrap , accueilConsultationFond importation-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <!-- jQuery UI library -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- Importation Toastr.js (notification)-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <!--  Importation Js -->
+        <script src="data/reducedDevAlbum.js"></script>
+        <script src="data/series.js"></script>
+        <script src="data/auteurs.js"></script>
+        <script src="data/examplaires.js"></script>
+        <script src="js/accueilConsultationFond.js"></script>
+        <script src="./js/addExemplaire.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <!-- Import jQuery DataTables et plugin DataTable pour recherche sans accent -->
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/plug-ins/1.13.7/filtering/type-based/accent-neutralise.js"></script>
+    </body>
+
+</html>
