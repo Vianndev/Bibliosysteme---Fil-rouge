@@ -23,7 +23,7 @@
   display: flex !important;
   flex-direction: row;
   border-radius: 30px;
-  height: 900px;
+  height: 850px;
   width: 100%;
 }
 
@@ -60,6 +60,8 @@ padding: 10px 35px;
 width: 170px;
 height: 36px;
 border: none;
+margin-top: 10px;
+margin-left: 10px;
 border-radius: 50px;
 transition : 661ms;
 transform: translateY(0);

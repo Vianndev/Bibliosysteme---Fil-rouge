@@ -15,7 +15,7 @@ const showImgInput = document.getElementById("showImgInput");
 const codeExemplaireInput = document.getElementById("codeExemplaireInput");
 const ajouterLivreSubmit = document.getElementById("ajouterLivreSubmit");
 
-let apiData, isImageFromApi,
+let apiData, isImageFromApi, currentImg,
  isImagePreview = true,
   lastSuggestedIsbn = [];
 
@@ -30,7 +30,11 @@ isbnInputBtn.addEventListener("click", handleIsbnInput);
 isbnInput.addEventListener("input", activateInput);
 
 // ------------------ Gestion Form --------------------
-
+/**
+ * Fonction principale de l'ajout de livre du formulaire.
+ * Appele les verifications
+ * @param {*} event 
+ */
 function handleAjouterLivreSubmit(event) {
   event.preventDefault();
   console.log(event);
@@ -87,6 +91,9 @@ function handleAjouterLivreSubmit(event) {
     ajouterLivreForm.reset();
   }
 }
+/**
+ * Remet à zero les données du formulaire
+ */
 function resetForm() {
   activateInput();
   showImgInput.src = "./images/apercu.png";
@@ -94,6 +101,10 @@ function resetForm() {
   isImageFromApi = false;
 }
 // ------------------ Gestion Isbn --------------------
+/**
+ * Gere la verification de l'isbn et appelle les fonctions pour trouver les données concordodantes
+ * @param {*} event 
+ */
 async function handleIsbnInput(event) {
   let input = isbnInput.value;
   let isValidIsbn = isIsbnValid(isbnInput.value);
@@ -105,7 +116,7 @@ async function handleIsbnInput(event) {
       apiData = await getApiBookData(input);
       if (apiData.numFound >= 1) {
         changeValuesByBookData();
-      }
+      }else if(apiData.numFound === 0)toastr.warning("Le livre est introuvable sur internet.");
     } catch (error) {
       console.error("Erreur:", error.message);
     }
@@ -129,6 +140,9 @@ function isIsbnInDataBase(inputIsbn) {
 }
 
 // ------------------ Gestion Autcomplete  -------------------
+/**
+ * Gere l'auto completion des series
+ */
 function serieInputSearch() {
   var seriesName = [];
   for (const value of series.values()) {
@@ -138,7 +152,9 @@ function serieInputSearch() {
     source: seriesName,
   });
 }
-
+/**
+ * Gere l'auto completion des titres
+ */
 async function titreInputSearch() {
   isbnInputLabel.innerText = "ISBN :";
   if (
@@ -197,6 +213,9 @@ async function titreInputSearch() {
     },
   });
 }
+/**
+ * Gere l'auto completion des auteurs
+ */
 function auteurInputSearch() {
   var auteurName = [];
   // Met chaque nom d'auteur dans un Array
@@ -209,6 +228,9 @@ function auteurInputSearch() {
   });
 }
 // ------------------ Gestion Validation --------------------
+/**
+ * Reactive les rentrées de données sur les champs du formulaire
+ */
 function activateInput() {
   // Reactive la rentree de donnée
   isbnInput.disabled = false;
@@ -304,7 +326,7 @@ function isAuteursExist(currentAuteur) {
   return currentKey;
 }
 /**
- * Valide tout les inputs
+ * Verifie la validation de tout les inputs
  * @returns 
  */
 function validateInputs() {
@@ -312,7 +334,7 @@ function validateInputs() {
   //const textRegex = /^[\p{L}\p{M}0-9.,'’\s]+$/gu;;
   // const textRegex = /^[\s\w\d\?><;,\{\}\[\]\-_\+=!@\#\$%^&\*\|\']*$/;
  // const textRegex = /[\p{L}\p{Lu}\p{N}\p{P}\s]+/gu;
-  const textRegex = /[a-zA-Z\u00C0-\u00FF0-9.,'’éèàù\s]+$/i;
+  const textRegex = /[a-zA-Z\u00C0-\u00FF0-9.,'’éèàù\s!?]+$/i;
     const numberRegex = /^\d+$/;
   const numberAndTextRegex = /^[a-zA-Z0-9]+$/;
 
@@ -539,25 +561,38 @@ async function getIsbnApi(input) {
  */
 function handleImgChange() {
   const image = imgFileInput.files[0];
+  allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (!allowedTypes.includes(image.type)) {
+    toastr.warning(
+      "Le fichier doit etre une image (jpg,jpeg,png) de moins de 2MB!"
+    );
+    return;
+  }
   if (image.size > 2097152 && image != undefined) {
-    alert("l'image est trop grosse");
+    toastr.warning("L'image doit faire moins de 2MB !");
     this.value = "";
     return;
   }
   if (image) {
     // Annonce que l'image vient de la base de données
     isImageFromApi = false;
-
+    isImagePreview =false;
     const fileReader = new FileReader();
     fileReader.readAsDataURL(image);
     fileReader.addEventListener("load", function () {
       showImgInput.src = this.result;
-      return this.result;
+      currentImg = this.result;
+      console.log("handleImgChange src image input", this.result);
+      return currentImg;
     });
   }
 }
 // ------------------ Ajout serie/auteur --------------------
-
+/**
+ * Creer une serie lorsque celle entrée n'existe pas
+ * @param {*} serieKey 
+ * @returns 
+ */
 function addSeriesFromInput(serieKey) {
   var maxKey = 0;
 for (const [key, value] of series) {
@@ -572,7 +607,11 @@ if (parseInt(key) > maxKey) maxKey = parseInt(key);
   console.log(series.get(id.toString()), "serie ajouté");
   return id;
 }
-
+/**
+ * Creer un auteur lorsque celui entrée n'existe pas
+ * @param {*} serieKey 
+ * @returns 
+ */
 function addAuteursFromInput(auteurKey) {
     var maxKey = 0;
     for (const [key, value] of auteurs) {
@@ -594,6 +633,10 @@ function addAuteursFromInput(auteurKey) {
   return id;
 }
 // ------------------ Ajout examplaire/album --------------------
+/**
+ * Ajoute un exemplaire depuis les données rentrée
+ * @param {*} albumKey 
+ */
 function addExemplaireFromInput(albumKey) {
   var maxKey = 0;
   for (const [key, value] of exemplaires) {
@@ -626,7 +669,10 @@ function addExemplaireFromInput(albumKey) {
   console.log("exemplaire ajouter :", id.toString(), exemplaires.get(id.toString())
   );
 }
-
+/**
+ * Ajoute un album depuis les données rentrée
+ * @param {*} albumKey 
+ */
 function addAlbumFromInput(serieKey, auteurKey) {
  var maxKey = 0;
  for (const [key, value] of albums) {
@@ -634,7 +680,6 @@ function addAlbumFromInput(serieKey, auteurKey) {
  }
      console.log(`albums maxKey:${maxKey}`);
  var id = maxKey + 1;
-  console.log(albums.size, getMapSize(albums), id);
   var currentBigImg = "./images/apercu.png",
     currentMiniImg = "./images/apercu.png";
   if (isImageFromApi) {
@@ -667,12 +712,4 @@ function addAlbumFromInput(serieKey, auteurKey) {
   console.log(albums.get(id.toString()));
   return id
 }
-function getMapSize(map) {
-  var compteur = 0;
-  for (var key in map) {
-    compteur++;
-  }
-  console.log(`Compteur : ${compteur}`);
-  return compteur;
-}
-// ------------------ Notification --------------------
+

@@ -59,6 +59,9 @@ function init() {
     table.search(this.value).draw();
     manageSearch(this.value);
   });
+   $(".navbar-toggler").on("click", function () {
+     $("#navbarNav").collapse("toggle");
+   });
   afficheAlbums();
   manageSearch();
   manageWidth();
@@ -101,7 +104,9 @@ function getIsWidthSmall() {
     return false; // Écran large
   else return true;
 }
-
+/**
+ * Gere l'affichage selon la taille de l'ecran
+ */
 function manageWidth() {
   if (getIsWidthSmall() === true) manageSmallScreen();
   else manageOtherBigScreen();
@@ -135,7 +140,7 @@ function manageOtherBigScreen() {
  * Methode qui affiche les albums en Cartes pour mobile et appelle la gestion la pagination
  * @param {*} params
  */
-function afficheCard(params) {
+function afficheCard() {
   searchInTable();
   //  Reset l'element pagination 
   var pagination = document.getElementById("pagination");
@@ -150,6 +155,7 @@ function afficheCard(params) {
   for (const [key, value] of albums) {
     if (resultsID.includes(key)) {
       var currentAlbum = document.getElementById(`card${key}`);
+       console.log(`afficheCard ${key}${currentAlbum}`);
       resultsDiv.push(currentAlbum);
     }
   }
@@ -536,6 +542,10 @@ function addNewRow(id, miniImg, titre, serieName, auteurName) {
     showAlbumPopUp(currentId);
   });
 }
+/**
+ * Affiche le détails de la bd lors que l'ecran est grand
+ * @param {*} id 
+ */
 function showAlbumPopUp(id) {
   var currentAlbum = document.getElementById(`card${id}`).cloneNode(true);
  currentAlbum.style.display = "block";
