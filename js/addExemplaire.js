@@ -52,7 +52,7 @@ function handleAjouterLivreSubmit(event) {
       var serieKey = isSeriesExist(currentSerie);
       var auteurKey = isAuteursExist(currentAuteur);
       if (serieKey === false) serieKey = addSeriesFromInput(serieKey);
-      if (auteurKey === false) auteurKey = addAuteursFromInput(auteurKey);
+      if (auteurKey === false) auteurKey = addAuteursFromInput();
       console.log(serieKey, auteurKey);
 
       var serieName = series.get(serieKey.toString()).nom;
@@ -83,6 +83,7 @@ function handleAjouterLivreSubmit(event) {
     activateInput();
     toastr.success("Livre bien ajouté !");
     $("#ajouterLivrePopUp").modal("hide");
+     resetForm();
     ajouterLivreForm.reset();
   }
 }
@@ -428,10 +429,18 @@ function isIsbnValid(input) {
 function changeValuesByAlbums(albumKey) {
   var albumKey = albumKey.toString(),
     currentAlbum = albums.get(albumKey);
-  console.log(currentAlbum);
+    if (typeof currentAlbum.idAuteur !== "string")currentAlbum.idAuteur = currentAlbum.idAuteur.toString();
+    if (typeof currentAlbum.idSerie !== "string") currentAlbum.idSerie = currentAlbum.idSerie.toString();
+
+      console.log(
+        "current album",
+        currentAlbum,
+        `id auteur : ${currentAlbum.idAuteur}`
+      );
   // Récupération du nom de l'auteur et de la série grace ID
   var serieName = series.get(currentAlbum.idSerie).nom;
-  var auteurName = auteurs.get(currentAlbum.idAuteur).nom;
+   var auteurName = auteurs.get(currentAlbum.idAuteur).nom;
+  //var auteurName = auteurs.get(currentAlbum.idAuteur).nom;
   // Anonce que l'image vient de la base de données
   isImageFromApi = false;
   // Insere les noms d'autheurs , de serie et l'image et l'emplacement
@@ -557,14 +566,14 @@ if (parseInt(key) > maxKey) maxKey = parseInt(key);
   console.log(`serie maxKey:${maxKey}`);
   var id = maxKey + 1;
   var nouvelleSerie = {
-    nom: serieInput.value,
+    nom: serieInput.value.toString(),
   };
   series.set(id.toString(), nouvelleSerie);
-  console.log(series.get(id.toString()));
+  console.log(series.get(id.toString()), "serie ajouté");
   return id;
 }
 
-function addAuteursFromInput(serieKey) {
+function addAuteursFromInput(auteurKey) {
     var maxKey = 0;
     for (const [key, value] of auteurs) {
       if (parseInt(key) > maxKey) maxKey = parseInt(key);
@@ -573,10 +582,15 @@ function addAuteursFromInput(serieKey) {
 
     var id = maxKey + 1;
   var nouveauAuteur = {
-    nom: auteurInput.value,
+    nom: auteurInput.value.toString(),
   };
+  console.log(
+    "nouveau auteur avant mis  dans le tab :",
+    nouveauAuteur,
+    auteurInput.value
+  );
   auteurs.set(id.toString(), nouveauAuteur);
-  console.log(auteurs.get(id.toString()));
+  console.log(auteurs.get(id.toString()),"auteur ajouté");
   return id;
 }
 // ------------------ Ajout examplaire/album --------------------
