@@ -21,6 +21,9 @@ window.addEventListener("resize", manageWidth);
 
 document.addEventListener("DOMContentLoaded", init);
 
+/**
+ * Initialise la page
+ */
 function init() {
   table = $("#homePageTabBooks").DataTable({
     columnDefs: [
@@ -54,18 +57,21 @@ function init() {
   });
   $("#searchInput").on("keyup search input paste cut", function () {
     table.search(this.value).draw();
-    managaSearch(this.value);
+    manageSearch(this.value);
   });
   afficheAlbums();
-  managaSearch();
+  manageSearch();
   manageWidth();
 }
-function managaSearch() {
+/**
+ * Gere la recherche 
+ */
+function manageSearch() {
   searchInTable();
   if (getIsWidthSmall() === true) afficheCard();
 }
 /**
- * Rnvoie et affiche les cartes visible/cherché.
+ * Renvoie et affiche les cartes visible/cherché en fonction de la recherche du tableau.
  * Coordonne le resultat de la recherche dans le tableau avec les cartes
  */
 function searchInTable() {
@@ -88,6 +94,7 @@ function searchInTable() {
 // --------------------------Gestion de la responsivité-----------------------------
 /**
  * Vérifie la taille de l'écran et ajuste l'affichage en conséquence.
+ * @returns {Bool}Renvoie si l'ecran est petit
  */
 function getIsWidthSmall() {
   if (window.matchMedia("(min-width: 576px)").matches)
@@ -99,6 +106,9 @@ function manageWidth() {
   if (getIsWidthSmall() === true) manageSmallScreen();
   else manageOtherBigScreen();
 }
+/**
+ * Gere l'affichage des elements lorsque l'ecran EST petit
+ */
 function manageSmallScreen() {
   responsiveList.style.display = "flex";
   containerHomepageBooks.style.display = "none";
@@ -108,6 +118,9 @@ function manageSmallScreen() {
   });
   afficheCard();
 }
+/**
+ * Gere l'affichage des elements lorsque l'ecran n'est PAS petit
+ */
 function manageOtherBigScreen() {
   // Écran large
    //reset la pagination
@@ -119,7 +132,7 @@ function manageOtherBigScreen() {
   responsiveList.style.display = "none";
 }
 /**
- * Methode qui affiche les albums en Cartes pour mobile et gère la pagination
+ * Methode qui affiche les albums en Cartes pour mobile et appelle la gestion la pagination
  * @param {*} params
  */
 function afficheCard(params) {
@@ -161,15 +174,9 @@ function afficheCard(params) {
       break;
     }
   }
-/*
-  // Gestion de l'événement de clic sur la pagination
-  $(".pagination").on("click", "li", function (e) {
-    e.preventDefault();
-    manageCardShowPerPage(this);
-  });*/
 }
 /**
- * Gere la pagination et creer la pagination a chaque cclick sur un element
+ * Gere la pagination (pour petit ecran ) et creer la pagination a chaque click sur un element
  * @param {*} page 
  * @returns 
  */
@@ -271,14 +278,16 @@ function createPagination(pageCourante) {
   return str;
 }
 
-
+/**
+ * Gere le nombre de carte a afficher sur chaque page (ecran petit)
+ * @param {*} pageCourante 
+ */
 function manageCardShowPerPage(pageCourante) {
   // Calcul des index de début et de fin pour les éléments à afficher pour 10 elements par page
   var start = (pageCourante - 1) * 10;
   var end = start + 10;
   //  Cache toutes les cartes
   $(".cardAlbum").hide();
-
   // Affichage des éléments pour la page sélectionnée
   resultsDiv.slice(start, end).forEach(function (element) {
     element.style.setProperty("display", "block");
@@ -318,9 +327,10 @@ async function afficheAlbums() {
           value.isbnAlreadySearched = true;
         } 
     }
+    //addAlbumToLocal(key, value);
     // Renvoie la clé et la valeur de chaque examplaire disponible d'un album dans un tableau
     exemplairesKeyTab = getExemplairesPerAlbum(numeroAlbum);
-    manageExemplaires(exemplairesKeyTab ,key);
+    pushExemplairesDataToAlbum(exemplairesKeyTab ,key);
     console.log(exemplairesKeyTab)
     // Ajout de l'album à la table et à la liste de cartes
     addNewRow(key, value.miniImg, value.titre, serieName, auteurName);
@@ -372,19 +382,9 @@ function getExemplairesPerAlbum(numeroAlbum) {
 }
 
 /**
- * Gère les exemplaires pour un album donné en ajoutant les données d'exemplaires à l'album.
- * @param {2DArray |null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
- * @param {string} key Clé de l'album à gérer (utile quand le tableau est == null)
- */
-function manageExemplaires(exemplairesKeyTab, albumKey) {
-  pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey); // Appelle la fonction pour recuperer les données d'exemplaires à l'album
-
-}
-
-/**
  * Ajoute les données d'exemplaires à un album spécifique s'il en possède.
  * @param {2DArray|null} exemplairesKeyTab Tableau contenant la clé et la valeur de chaque exemplaire
- * @param {string} key Clé de l'album à gérer
+ * @param {string} key Clé de l'album à gérer  (utile quand le tableau est == null
  */
 function pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey) {
   // Vérifie s'il y a des exemplaires pour l'album et attribue les valeurs correspondantes
@@ -393,7 +393,7 @@ function pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey) {
     var exemplairesAlbumKey = exemplairesKeyTab[0][1].keyAlbum.toString();
     var album = albums.get(exemplairesAlbumKey);
    // var albumMap = getAlbumFromLocal();
-   // var currentAlbum = albumMap.get(exemplairesAlbumKey)
+    //var album = albumMap.get(exemplairesAlbumKey)
     // Attribue la clé de chaque exemplaire de cet album dans un tableau
     for (let i = 0; i < exemplairesKeyTab.length; i++) {
       var exemplairesKey = exemplairesKeyTab[i][0].toString();
@@ -411,6 +411,7 @@ function pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey) {
     }
     album.nombreExemplairesDispo = nombreExemplairesDispo;
     album.emplacement = exemplairesKeyTab[0][1].emplacement;
+    //addAlbumToLocal(exemplairesAlbumKey, album);
     console.log(album);
   } else {
     // Affecte des valeurs par défaut à l'album s'il n'a pas d'exemplaires
@@ -418,7 +419,8 @@ function pushExemplairesDataToAlbum(exemplairesKeyTab, albumKey) {
     album.exemplairesKeyTab = [];
     album.nombreExemplairesDispo = 0;
     album.emplacement = null;
-    console.log(album, albums.size);
+    //addAlbumToLocal(exemplairesAlbumKey, album);
+    console.log(album);
   }
 }
 /**
@@ -543,145 +545,4 @@ function showAlbumPopUp(id) {
 
   modalContent.appendChild(currentAlbum);
   $("#albumPopUp").modal("show");
-} /*
-/*
-// Lecture d'un album
-console.log("Lecture d'un album");
-var album = albums.get("5");
-var serie = series.get(album.idSerie);
-var auteur = auteurs.get(album.idAuteur);
-console.log(album.titre+" "+serie.nom+" "+auteur.nom);
-*/
-
-/*
-console.log("Liste des albums");
-albums.forEach(album => {
-    serie = series.get(album.idSerie);
-    auteur = auteurs.get(album.idAuteur);
-    console.log(album.titre+" N°"+album.numero+" Série:"+serie.nom+" Auteur:"+auteur.nom);
-});
-*/
-
-/*
-console.log("Liste des albums par série");
-for(var [idSerie, serie] of series.entries()) {
-    // Recherche des albums de la série
-    for (var [idAlbum, album] of albums.entries()) {
-        if (album.idSerie == idSerie) {
-            console.log(serie.nom+", Album N°"+album.numero+" "+album.titre+", Auteur:"+auteurs.get(album.idAuteur).nom);
-        }
-    }
-    
 }
-*/
-
-/*
-console.log("Liste des albums par auteur");
-for(var [idAuteur, auteur] of auteurs.entries()) {
-    // Recherche des albums de l'auteur
-    for (var [idAlbum, album] of albums.entries()) {
-        if (album.idAuteur == idAuteur) {
-            console.log(auteur.nom+", Album N°"+album.numero+" "+album.titre+", Série:"+series.get(album.idSerie).nom);
-        }
-    }
-    
-}
-*/
-/*
-  // Affichage des BD
-  var txtSerie = document.getElementById("serie");
-  var txtNumero = document.getElementById("numero");
-  var txtTitre = document.getElementById("titre");
-  var txtAuteur = document.getElementById("auteur");
-  var txtPrix = document.getElementById("prix");
-  var imgAlbum = document.getElementById("album");
-  var imgAlbumMini = document.getElementById("albumMini");
-
-  imgAlbum.addEventListener("error", function () {
-    prbImg(this);
-  });
-
-  imgAlbumMini.addEventListener("error", function () {
-    prbImg(this);
-  });
-
-  var id = document.getElementById("id");
-  id.addEventListener("change", function () {
-    getAlbum(this);
-  });
-/*
-/**
- * Récupération de l'album par son id et appel de
- * la fonction d'affichage
- *
- * @param {number} num
- *//*
-function getAlbum(num) {
- var album = albums.get(num.value);
-
- if (album === undefined || num < 0 || typeof num != "number") throw Error("Input num invalide ou livre non trouvé ")
- else {
-   var serie = series.get(album.idSerie);
-   var auteur = auteurs.get(album.idAuteur);
-   txtSerie.value = serie.nom;
-   txtNumero.value = album.numero;
-   txtTitre.value = album.titre;
-   txtAuteur.value = auteur.nom;
-   txtPrix.value = album.prix;
-
-   var nomFic = serie.nom + "-" + album.numero + "-" + album.titre;
-
-   // Utilisation d'une expression régulière pour supprimer
-   // les caractères non autorisés dans les noms de fichiers : '!?.":$
-   nomFic = nomFic.replace(/'|!|\?|\.|"|:|\$/g, "");
-   console.log(album)
-  
-   
- afficheAlbums(
-   $("#albumMini"),
-   $("#album"),
-   SRC_ALBUM_MINI + nomFic + ".jpg",
-   SRC_ALBUM + nomFic + ".jpg"
- );
- }
-}*/ /*
-
-/**
- * Affichage des images, les effets sont chainés et traités
- * en file d'attente par jQuery d'où les "stop()) et "clearQueue()"
- * pour éviter l'accumulation d'effets si défilement rapide des albums.
- *
- * @param {object jQuery} $albumMini
- * @param {object jQuery} $album
- * @param {string} nomFic
- * @param {string} nomFicBig
-function afficheAlbums($albumMini, $album, nomFicMini, nomFic) {
-  $album
-    .stop(true, true)
-    .clearQueue()
-    .fadeOut(100, function () {
-      $album.attr("src", nomFic);
-      $albumMini
-        .stop(true, true)
-        .clearQueue()
-        .fadeOut(150, function () {
-          $albumMini.attr("src", nomFicMini);
-          $albumMini.slideDown(200, function () {
-            $album.slideDown(200);
-          });
-        });
-    });
-}
- */
-/**
- * Affichage de l'image par défaut si le chargement de l'image de l'album
- * ne s'est pas bien passé
- *
- * @param {object HTML} element
- *//*
-function prbImg(element) {
- // console.log(element);
- if (element.id === "albumMini") element.src = ALBUM_DEFAULT_MINI;
- else element.src = ALBUM_DEFAULT;
-}
-*/

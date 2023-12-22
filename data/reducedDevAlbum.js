@@ -244,3 +244,55 @@ albums.set("40", {
   idAuteur: "24",
   prix: "10",
 });
+
+/*
+// Met la map Album en JSON
+var albumsJSON = JSON.stringify([...albumsMAP]);
+
+// Met le Json dans le localstorage
+localStorage.setItem("albumsData", albumsJSON);
+
+/**
+ * Ajouter un album à la map 'albums' et met à jour le stockage local
+ * @param {*} id
+ * @param {*} albumContent
+ */
+/*
+function addAlbumToLocal(id, albumContent) {
+  console.log(`addAlbumToLocal ${id} , ${albumContent}`);
+  // Supposons que 'albums' soit votre carte existante stockée  en local
+  var currentAlbumsJSON = localStorage.getItem("albumsData");
+  var albumsMap = new Map(JSON.parse(currentAlbumsJSON));
+  console.log(id, typeof id);
+  if (typeof id != "string" && id) id = id.toString();
+  // Ajouter le nouvel album à la carte 'albumsMap'
+  albumsMap.set(id, albumContent);
+
+  //  Transforme la map Album UPDATED en JSON
+  var albumsMisAJourJSON = JSON.stringify([...albums]);
+
+  // Stocker le JSON UPDATED en local
+  localStorage.setItem("albumsData", albumsMisAJourJSON);
+}
+*/
+/*
+function refreshAlbumLocal(mapOfAllAlbums) {
+  var albumsMisAJourJSON = JSON.stringify([...mapOfAllAlbums]);
+  localStorage.setItem("albumsData", albumsMisAJourJSON);
+}
+*/
+/**
+ * Retourne La map d'album depuis le localstorage
+ * @returns Map
+ */
+/*
+function getAlbumFromLocal() {
+  var currentAlbumsJSON = localStorage.getItem("albumsData");
+  if (currentAlbumsJSON) {
+    return new Map(JSON.parse(currentAlbumsJSON));
+  } else {
+    return new Map(); // Retourne une nouvelle carte vide si aucune donnée n'est trouvée
+  }
+}
+var albums = getAlbumFromLocal();
+*/
