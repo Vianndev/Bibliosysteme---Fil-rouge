@@ -96,7 +96,7 @@ function handleAjouterLivreSubmit(event) {
  */
 function resetForm() {
   activateInput();
-  showImgInput.src = "./images/apercu.png";
+  showImgInput.src = "./images/apercu.avif";
   isImagePreview = true;
   isImageFromApi = false;
 }
@@ -498,7 +498,7 @@ function changeValuesByBookData(params) {
   } else {
     isImageFromApi = false;
     isImagePreview = true;
-    showImgInput.src = "./images/apercu.png";
+    showImgInput.src = "./images/apercu.avif";
   }
   // Desactive la rentree de donnée
   titreInput.disabled = true;
@@ -680,8 +680,8 @@ function addAlbumFromInput(serieKey, auteurKey) {
  }
      console.log(`albums maxKey:${maxKey}`);
  var id = maxKey + 1;
-  var currentBigImg = "./images/apercu.png",
-    currentMiniImg = "./images/apercu.png";
+  var currentBigImg = "./images/apercu.avif",
+    currentMiniImg = "./images/apercu.avif";
   if (isImageFromApi) {
     currentBigImg = `https://covers.openlibrary.org/b/isbn/${isbnInput.value}-L.jpg`;
     currentMiniImg = `https://covers.openlibrary.org/b/isbn/${isbnInput.value}-M.jpg`;

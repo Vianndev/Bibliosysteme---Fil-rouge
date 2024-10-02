@@ -1,6 +1,6 @@
 const SRC_IMG = "images/"; // emplacement des images de l'appli
-const ALBUM_DEFAULT_MINI = SRC_IMG + "noComicsMini.jpeg";
-const ALBUM_DEFAULT = SRC_IMG + "noComics.jpeg";
+const ALBUM_DEFAULT_MINI = SRC_IMG + "noComicsMini.avif";
+const ALBUM_DEFAULT = SRC_IMG + "noComics.avif";
 const SRC_ALBUM_MINI = "albumsMini/"; // emplacement des images des albums en petit
 const SRC_ALBUM = "albums/"; // emplacement des images des albums en grand
 const DIVTABLEBODY = document.getElementById("tabListLivresBody");
@@ -320,8 +320,8 @@ async function afficheAlbums() {
     nomFic = nomFic.replace(/'|!|\?|\.|"|:|\$/g, ""); // Suppression des caractères non autorisés
 
     // Donne les src des images aux albums
-    value.miniImg = SRC_ALBUM_MINI + nomFic + ".jpg";
-    value.bigImg = SRC_ALBUM + nomFic + ".jpg";
+    value.miniImg = SRC_ALBUM_MINI + nomFic + ".avif";
+    value.bigImg = SRC_ALBUM + nomFic + ".avif";
     //  Ajoute l'isbn si iil n'est pas déjà rentré
     if (value.isbn === undefined && value.isbnAlreadySearched != true) {
       var titreAuteur = value.titre + " " + auteurName;
