@@ -11,6 +11,7 @@
     --list-background-color: #444B6E;
     --active-list-background-color: #9AB87A;
   }
+
   /* ----------------- Ajout Livre ------------------ */
   .modal-body {
     max-height: calc(100vh - 143px);
