@@ -12,6 +12,27 @@
     --active-list-background-color: #9AB87A;
   }
 
+.containerBtnAjoutLivre {
+  position: static; /* Par défaut, la position est statique */
+}
+
+.btnAjoutLivre {
+  position: static; /* Par défaut, la position est statique */
+}
+
+/* Media Query pour les écrans plus grands que 576px (sm) */
+@media (min-width: 768px) {
+  .containerBtnAjoutLivre {
+    position: relative; /* Position relative à partir de 576px */
+  }
+
+  .btnAjoutLivre {
+    position: absolute; /* Position absolue à partir de 576px */
+    top: 0; /* En haut du conteneur */
+    left: 0; /* À gauche du conteneur */
+  }
+}
+
   /* ----------------- Ajout Livre ------------------ */
   .modal-body {
     max-height: calc(100vh - 143px);
@@ -82,7 +103,7 @@ text-decoration:none;
 
     transition : 661ms;
     padding: 10px 35px;
-    transform : translateY(-7px);
+    transform : scale(1.05);
     background-color: var(--orange);
     color: white;
     border: none;
@@ -158,7 +179,7 @@ text-decoration:none;
     color:var(--violet-clair);
   }
   .card-text{
-    color:dark;
+    color: dark;
   }
   
   .card-footer {
