@@ -323,16 +323,16 @@ async function afficheAlbums() {
     value.miniImg = SRC_ALBUM_MINI + nomFic + ".avif";
     value.bigImg = SRC_ALBUM + nomFic + ".avif";
     //  Ajoute l'isbn si iil n'est pas déjà rentré
-    if (value.isbn === undefined && value.isbnAlreadySearched != true) {
-      var titreAuteur = value.titre + " " + auteurName;
-      const isbnArray = await getIsbnApi(titreAuteur);
-        if (isbnArray != false) {
-              value.isbn =isbnArray;
-        } else{
-          value.isbn === undefined;
-          value.isbnAlreadySearched = true;
-        } 
-    }
+    // if (value.isbn === undefined && value.isbnAlreadySearched != true) {
+    //   var titreAuteur = value.titre + " " + auteurName;
+    //   const isbnArray = await getIsbnApi(titreAuteur);
+    //     if (isbnArray != false) {
+    //           value.isbn =isbnArray;
+    //     } else{
+    //       value.isbn === undefined;
+    //       value.isbnAlreadySearched = true;
+    //     }
+    // }
     //addAlbumToLocal(key, value);
     // Renvoie la clé et la valeur de chaque examplaire disponible d'un album dans un tableau
     exemplairesKeyTab = getExemplairesPerAlbum(numeroAlbum);
