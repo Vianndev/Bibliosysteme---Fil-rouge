@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "move-bootstrap-css": "mkdir -p css && cp node_modules/bootstrap/dist/css/bootstrap.min.css css/"
+  },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "datatables.net-bs5": "^2.1.7",
